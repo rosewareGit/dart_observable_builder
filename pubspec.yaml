@@ -1,0 +1,23 @@
+name: dart_observable_builder
+description: Widget builder for dart_observable
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  dart_observable:
+    git:
+        url: https://github.com/rosewareGit/dart_observable
+        ref: main
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
