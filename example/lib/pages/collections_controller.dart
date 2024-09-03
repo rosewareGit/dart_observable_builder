@@ -22,7 +22,7 @@ class PageCollectionsController {
   late final Observable<CollectionViewType> rxViewType = _rxViewType;
   late final ObservableList<String> rxSourceList = _rxSourceList;
   late final ObservableSet<String> rxSorted =
-      _rxSourceList.transformCollectionAsSet(
+      _rxSourceList.transformChangeAs.set(
     transform: _transformSorted,
     factory: (final Iterable<String>? items) {
       return SplayTreeSet<String>.of(
@@ -31,15 +31,15 @@ class PageCollectionsController {
       );
     },
   )..onActivityChanged(
-          onActive: (final Observable<ObservableSetState<String>> source) {
+          onActive: (final _) {
             _rxSortedListActive.value = true;
           },
-          onInactive: (final Observable<ObservableSetState<String>> source) {
+          onInactive: (final _) {
             _rxSortedListActive.value = false;
           },
         );
   late final ObservableMap<int, String> rxItemsByLength =
-      _rxSourceList.transformCollectionAsMap(
+      _rxSourceList.transformChangeAs.map(
     transform: _transformItemsByLength,
     factory: (final Map<int, String>? items) {
       return SplayTreeMap<int, String>.of(
@@ -61,7 +61,11 @@ class PageCollectionsController {
   }
 
   void onAddNamePressed() {
-    _rxSourceList.add(getRandomName());
+    final List<String> names = <String>[];
+    for (int i = 0; i < 100; i++) {
+      names.add(getRandomName());
+    }
+    _rxSourceList.addAll(names);
   }
 
   void removeItemAt(final int index) {

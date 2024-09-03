@@ -31,10 +31,9 @@ class _PageCollectionsState extends State<PageCollections> {
           observable: _controller.rxSortedListActive,
           onChanged: (
             final BuildContext context,
-            final Observable<bool> source,
+            final bool active,
           ) {
             SchedulerBinding.instance.addPostFrameCallback((final _) {
-              final bool active = source.value;
               if (active) {
                 context.snackbar('Sorted list is active');
               } else {
@@ -120,13 +119,14 @@ class _PageCollectionsState extends State<PageCollections> {
         itemCount: items.length,
         itemBuilder: (final BuildContext context, final int index) {
           return ListTile(
-              title: Text(items[index]),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () {
-                  _controller.removeItemAt(index);
-                },
-              ));
+            title: Text(items[index]),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                _controller.removeItemAt(index);
+              },
+            ),
+          );
         },
       );
     });
@@ -153,8 +153,10 @@ class _PageCollectionsState extends State<PageCollections> {
 
   Widget _buildMapView() {
     return _controller.rxItemsByLength.build(
-      (final BuildContext context,
-          final ObservableMapState<int, String> value) {
+      (
+        final BuildContext context,
+        final ObservableMapState<int, String> value,
+      ) {
         final List<MapEntry<int, String>> items =
             value.mapView.entries.toList();
         if (items.isEmpty) {

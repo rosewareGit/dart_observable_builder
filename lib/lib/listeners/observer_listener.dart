@@ -1,8 +1,6 @@
 import 'package:dart_observable/dart_observable.dart';
 import 'package:flutter/widgets.dart';
 
-typedef ObsL = ObserverListener;
-
 class ObserverListener<T> extends StatelessWidget {
   const ObserverListener({
     required this.observable,
@@ -12,7 +10,7 @@ class ObserverListener<T> extends StatelessWidget {
     super.key,
   });
 
-  final void Function(BuildContext context, Observable<T> source) onChanged;
+  final void Function(BuildContext context, T value) onChanged;
   final void Function(BuildContext context, dynamic error)? onError;
   final Observable<T> observable;
   final Widget? child;
@@ -41,7 +39,7 @@ class _Element<T> extends StatelessElement {
     this.onError,
   });
 
-  final void Function(BuildContext context, Observable<T> source) onChanged;
+  final void Function(BuildContext context, T value) onChanged;
   final void Function(BuildContext context, dynamic error)? onError;
   final Observable<T> observable;
 
@@ -65,8 +63,8 @@ class _Element<T> extends StatelessElement {
 
   void _registerListeners() {
     _currentListener = observable.listen(
-      onChange: (final Observable<T> source) {
-        onChanged(_parent, source);
+      onChange: (final T value) {
+        onChanged(_parent, value);
       },
       onError: (final dynamic error, final StackTrace stack) {
         final void Function(BuildContext context, dynamic error)? errorBuilder = onError;

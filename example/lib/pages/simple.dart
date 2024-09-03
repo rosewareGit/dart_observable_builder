@@ -1,4 +1,3 @@
-import 'package:dart_observable/dart_observable.dart';
 import 'package:dart_observable_builder/dart_observable_builder.dart';
 import 'package:dart_observable_builder_example/snackbars.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +30,7 @@ class _PageSimpleState extends State<PageSimple> {
             ObserverListener<int>(
               observable: _controller.rxCounter,
               onChanged:
-                  (final BuildContext context, final Observable<int> source) {
-                final int counter = source.value;
+                  (final BuildContext context, final int counter) {
                 if (counter % 5 == 0) {
                   context.snackbar('Counter: $counter');
                 }
