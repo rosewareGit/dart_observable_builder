@@ -13,7 +13,7 @@ class PageSimpleController {
     (final String value) => value.contains('3') || value.contains('7'),
   );
 
-  late final Observable<int> rxFlatMap = _rxCounter.flatMap(
+  late final Observable<int> rxFlatMap = _rxCounter.switchMap(
     (final int value) {
       if (value % 2 == 0) {
         return Observable<int>.fromStream(

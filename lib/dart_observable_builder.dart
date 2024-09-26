@@ -6,3 +6,4 @@ export 'lib/builders/observable_builder_3.dart';
 export 'lib/listeners/multi_observer_listener.dart';
 export 'lib/listeners/observer_listener.dart';
 export 'lib/types.dart';
+export 'lib/widget_observable_metrics.dart';

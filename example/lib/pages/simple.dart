@@ -22,33 +22,34 @@ class _PageSimpleState extends State<PageSimple> {
         title: const Text('Simple'),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(height: 20),
-            ObserverListener<int>(
-              observable: _controller.rxCounter,
-              onChanged:
-                  (final BuildContext context, final int counter) {
-                if (counter % 5 == 0) {
-                  context.snackbar('Counter: $counter');
-                }
-              },
-            ),
-            const Divider(),
-            _buildCounter(),
-            const Divider(),
-            _buildMappedValue(),
-            const Divider(),
-            _buildOddValue(),
-            const Divider(),
-            _buildMappedFilteredValue(),
-            const SizedBox(height: 40),
-            const Center(child: Text('Flatmap')),
-            const SizedBox(height: 10),
-            _buildFlatMapValue(),
-          ],
+        child: WidgetObservableMetrics(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(height: 20),
+              ObserverListener<int>(
+                observable: _controller.rxCounter,
+                onChanged: (final BuildContext context, final int counter) {
+                  if (counter % 5 == 0) {
+                    context.snackbar('Counter: $counter');
+                  }
+                },
+              ),
+              const Divider(),
+              _buildCounter(),
+              const Divider(),
+              _buildMappedValue(),
+              const Divider(),
+              _buildOddValue(),
+              const Divider(),
+              _buildMappedFilteredValue(),
+              const SizedBox(height: 40),
+              const Center(child: Text('Flatmap')),
+              const SizedBox(height: 10),
+              _buildFlatMapValue(),
+            ],
+          ),
         ),
       ),
     );
