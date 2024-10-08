@@ -73,12 +73,9 @@ class _PageCollectionsState extends State<PageCollections> {
             groupValue: buildType,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             children: <CollectionViewType, Widget>{
-              CollectionViewType.list:
-                  CollectionViewType.list.buildSelectorItem(),
-              CollectionViewType.set:
-                  CollectionViewType.set.buildSelectorItem(),
-              CollectionViewType.map:
-                  CollectionViewType.map.buildSelectorItem(),
+              CollectionViewType.list: CollectionViewType.list.buildSelectorItem(),
+              CollectionViewType.set: CollectionViewType.set.buildSelectorItem(),
+              CollectionViewType.map: CollectionViewType.map.buildSelectorItem(),
             },
             onValueChanged: (final CollectionViewType? value) {
               if (value != null) {
@@ -157,8 +154,7 @@ class _PageCollectionsState extends State<PageCollections> {
         final BuildContext context,
         final ObservableMapState<int, String> value,
       ) {
-        final List<MapEntry<int, String>> items =
-            value.mapView.entries.toList();
+        final List<MapEntry<int, String>> items = value.mapView.entries.toList();
         if (items.isEmpty) {
           return const Center(child: Text('No items'));
         }

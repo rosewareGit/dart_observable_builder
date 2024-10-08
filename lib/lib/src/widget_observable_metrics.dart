@@ -15,8 +15,7 @@ class WidgetObservableMetrics extends StatefulWidget {
   final Widget? child;
 
   @override
-  State<WidgetObservableMetrics> createState() =>
-      _WidgetObservableMetricsState();
+  State<WidgetObservableMetrics> createState() => _WidgetObservableMetricsState();
 }
 
 enum WidgetObservableMetricsType {
@@ -39,8 +38,7 @@ class _Controller {
     DartObservableGlobalMetrics().ignoreMetrics();
   }
 
-  late final RxSet<WidgetObservableMetricsType> _rxSelectedTypes =
-      RxSet<WidgetObservableMetricsType>(
+  late final RxSet<WidgetObservableMetricsType> _rxSelectedTypes = RxSet<WidgetObservableMetricsType>(
     initial: <WidgetObservableMetricsType>{
       ...WidgetObservableMetricsType.values,
     },
@@ -50,15 +48,12 @@ class _Controller {
   late final Rx<bool> _rxOpened = Rx<bool>(false);
   late final Rx<double> _rxOpacity = Rx<double>(0.4);
   late final Rx<bool> _rxTransparentBackground = Rx<bool>(true);
-  late final ObservableMap<String, _ListItem> rxItems =
-      _rxSelectedTypes.switchMapAs.map<String, _ListItem>(
+  late final ObservableMap<String, _ListItem> rxItems = _rxSelectedTypes.switchMapAs.map<String, _ListItem>(
     mapper: (final ObservableSetState<WidgetObservableMetricsType> value) {
-      final UnmodifiableSetView<WidgetObservableMetricsType> items =
-          value.setView;
+      final UnmodifiableSetView<WidgetObservableMetricsType> items = value.setView;
 
       return ObservableMap<String, _ListItem>.merged(
-        collections: items.map<ObservableMap<String, _ListItem>>(
-            (final WidgetObservableMetricsType type) {
+        collections: items.map<ObservableMap<String, _ListItem>>((final WidgetObservableMetricsType type) {
           return _createListItemObservableForType(type);
         }).toList(),
       );
@@ -81,14 +76,10 @@ class _Controller {
     final WidgetObservableMetricsType type,
   ) {
     return switch (type) {
-      WidgetObservableMetricsType.active =>
-        _mapSourceToListItem(type, DartObservableGlobalMetrics().rxActives),
-      WidgetObservableMetricsType.inactive =>
-        _mapSourceToListItem(type, DartObservableGlobalMetrics().rxInactives),
-      WidgetObservableMetricsType.dispose =>
-        _mapSourceToListItem(type, DartObservableGlobalMetrics().rxDisposes),
-      WidgetObservableMetricsType.notify =>
-        _mapSourceToListItem(type, DartObservableGlobalMetrics().rxNotifies),
+      WidgetObservableMetricsType.active => _mapSourceToListItem(type, DartObservableGlobalMetrics().rxActives),
+      WidgetObservableMetricsType.inactive => _mapSourceToListItem(type, DartObservableGlobalMetrics().rxInactives),
+      WidgetObservableMetricsType.dispose => _mapSourceToListItem(type, DartObservableGlobalMetrics().rxDisposes),
+      WidgetObservableMetricsType.notify => _mapSourceToListItem(type, DartObservableGlobalMetrics().rxNotifies),
     };
   }
 
@@ -103,8 +94,7 @@ class _Controller {
         final Emitter<ObservableMapUpdateAction<String, _ListItem>> updater,
       ) {
         final Map<String, List<DateTime>> added = change.added;
-        final Map<String, ObservableItemChange<List<DateTime>>> updated =
-            change.updated;
+        final Map<String, ObservableItemChange<List<DateTime>>> updated = change.updated;
 
         final Map<String, _ListItem> addItems = <String, _ListItem>{};
         final Set<String> removedItems = <String>{};
@@ -118,8 +108,7 @@ class _Controller {
           addItems[listItem.key] = listItem;
         }
 
-        for (final MapEntry<String, ObservableItemChange<List<DateTime>>> entry
-            in updated.entries) {
+        for (final MapEntry<String, ObservableItemChange<List<DateTime>>> entry in updated.entries) {
           final _ListItem listItem = _ListItem(
             type: type,
             name: entry.key,
@@ -128,8 +117,7 @@ class _Controller {
           addItems[listItem.key] = listItem;
         }
 
-        for (final MapEntry<String, List<DateTime>> entry
-            in change.removed.entries) {
+        for (final MapEntry<String, List<DateTime>> entry in change.removed.entries) {
           final _ListItem listItem = _ListItem(
             type: type,
             name: entry.key,
@@ -249,8 +237,7 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
               final BuildContext context,
               final ObservableSetState<WidgetObservableMetricsType> state,
             ) {
-              final UnmodifiableSetView<WidgetObservableMetricsType> types =
-                  state.setView;
+              final UnmodifiableSetView<WidgetObservableMetricsType> types = state.setView;
               final String typeString;
               if (types.isEmpty) {
                 typeString = 'None';
@@ -272,8 +259,7 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
                         LongPressDraggable<Object>(
                           delay: const Duration(milliseconds: 100),
                           onDragUpdate: (final DragUpdateDetails details) {
-                            _controller._rxOffset.value =
-                                details.globalPosition;
+                            _controller._rxOffset.value = details.globalPosition;
                           },
                           feedback: const SizedBox.shrink(),
                           child: IconButton(
@@ -326,14 +312,11 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
 
                                 return _controller.rxItems.build((
                                   final BuildContext context,
-                                  final ObservableMapState<String, _ListItem>
-                                      state,
+                                  final ObservableMapState<String, _ListItem> state,
                                 ) {
-                                  final List<_ListItem> items =
-                                      state.mapView.values.toList();
+                                  final List<_ListItem> items = state.mapView.values.toList();
                                   items.sort(
-                                    (final _ListItem a, final _ListItem b) =>
-                                        b.count.compareTo(a.count),
+                                    (final _ListItem a, final _ListItem b) => b.count.compareTo(a.count),
                                   );
                                   return ListView.builder(
                                     itemCount: items.length + 1,
@@ -345,12 +328,10 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
                                         // Clear button
                                         return TextButton(
                                           style: ButtonStyle(
-                                            minimumSize:
-                                                WidgetStateProperty.all<Size>(
+                                            minimumSize: WidgetStateProperty.all<Size>(
                                               const Size(0, 0),
                                             ),
-                                            tapTargetSize: MaterialTapTargetSize
-                                                .shrinkWrap,
+                                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                           ),
                                           onPressed: () {
                                             _controller.clear();
@@ -371,12 +352,10 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
                                           const SizedBox(width: 8),
                                           Expanded(
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
+                                                  scrollDirection: Axis.horizontal,
                                                   reverse: true,
                                                   child: Text(
                                                     name,
@@ -427,13 +406,11 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
               final BuildContext context,
               final ObservableSetState<WidgetObservableMetricsType> state,
             ) {
-              final UnmodifiableSetView<WidgetObservableMetricsType>
-                  selectedTypes = state.setView;
+              final UnmodifiableSetView<WidgetObservableMetricsType> selectedTypes = state.setView;
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  for (final WidgetObservableMetricsType type
-                      in WidgetObservableMetricsType.values)
+                  for (final WidgetObservableMetricsType type in WidgetObservableMetricsType.values)
                     CheckboxListTile(
                       value: selectedTypes.contains(type),
                       onChanged: (final bool? value) {

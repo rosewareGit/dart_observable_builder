@@ -10,19 +10,16 @@ enum CollectionViewType {
 }
 
 class PageCollectionsController {
-  static const String characters =
-      ' AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  static const String characters = ' AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
   late final RxList<String> _rxSourceList = RxList<String>();
   late final RxBool _rxSortedListActive = RxBool(false);
-  late final Rx<CollectionViewType> _rxViewType =
-      Rx<CollectionViewType>(CollectionViewType.list);
+  late final Rx<CollectionViewType> _rxViewType = Rx<CollectionViewType>(CollectionViewType.list);
 
   late final Observable<bool> rxSortedListActive = _rxSortedListActive;
   late final Observable<CollectionViewType> rxViewType = _rxViewType;
   late final ObservableList<String> rxSourceList = _rxSourceList;
-  late final ObservableSet<String> rxSorted =
-      _rxSourceList.transformChangeAs.set(
+  late final ObservableSet<String> rxSorted = _rxSourceList.transformChangeAs.set(
     transform: _transformSorted,
     factory: (final Iterable<String>? items) {
       return SplayTreeSet<String>.of(
@@ -31,15 +28,14 @@ class PageCollectionsController {
       );
     },
   )..onActivityChanged(
-          onActive: (final _) {
-            _rxSortedListActive.value = true;
-          },
-          onInactive: (final _) {
-            _rxSortedListActive.value = false;
-          },
-        );
-  late final ObservableMap<int, String> rxItemsByLength =
-      _rxSourceList.transformChangeAs.map(
+      onActive: (final _) {
+        _rxSortedListActive.value = true;
+      },
+      onInactive: (final _) {
+        _rxSortedListActive.value = false;
+      },
+    );
+  late final ObservableMap<int, String> rxItemsByLength = _rxSourceList.transformChangeAs.map(
     transform: _transformItemsByLength,
     factory: (final Map<int, String>? items) {
       return SplayTreeMap<int, String>.of(
@@ -88,14 +84,11 @@ class PageCollectionsController {
     updater(
       ObservableMapUpdateAction<int, String>(
         addItems: <int, String>{
-          for (final MapEntry<int, String> entry in added.entries)
-            entry.value.length: entry.value,
-          for (final MapEntry<int, ObservableItemChange<String>> entry
-              in updated.entries)
+          for (final MapEntry<int, String> entry in added.entries) entry.value.length: entry.value,
+          for (final MapEntry<int, ObservableItemChange<String>> entry in updated.entries)
             entry.value.newValue.length: entry.value.newValue,
         },
-        removeItems:
-            removed.values.map((final String item) => item.length).toSet(),
+        removeItems: removed.values.map((final String item) => item.length).toSet(),
       ),
     );
   }

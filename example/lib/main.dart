@@ -56,8 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute<dynamic>(
-                    builder: (final BuildContext context) =>
-                        const PageCollections(),
+                    builder: (final BuildContext context) => const PageCollections(),
                   ),
                 );
               },
