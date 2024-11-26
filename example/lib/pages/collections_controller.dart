@@ -73,7 +73,8 @@ class PageCollectionsController {
   }
 
   void _transformItemsByLength(
-    final ObservableMap<int, String> state,
+    final ObservableMap<int, String> current,
+    final List<String> state,
     final ObservableListChange<String> change,
     final Emitter<ObservableMapUpdateAction<int, String>> updater,
   ) {
@@ -88,13 +89,14 @@ class PageCollectionsController {
           for (final MapEntry<int, ObservableItemChange<String>> entry in updated.entries)
             entry.value.newValue.length: entry.value.newValue,
         },
-        removeItems: removed.values.map((final String item) => item.length).toSet(),
+        removeKeys: removed.values.map((final String item) => item.length).toSet(),
       ),
     );
   }
 
   void _transformSorted(
-    final ObservableSet<String> state,
+    final ObservableSet<String> current,
+    final _,
     final ObservableListChange<String> change,
     final Emitter<ObservableSetUpdateAction<String>> updater,
   ) {

@@ -1,6 +1,3 @@
-import 'dart:collection';
-
-import 'package:dart_observable/dart_observable.dart';
 import 'package:dart_observable_builder/dart_observable_builder.dart';
 import 'package:dart_observable_builder_example/pages/collections_controller.dart';
 import 'package:dart_observable_builder_example/snackbars.dart';
@@ -106,9 +103,8 @@ class _PageCollectionsState extends State<PageCollections> {
   Widget _buildListView() {
     return _controller.rxSourceList.build((
       final BuildContext context,
-      final ObservableListState<String> value,
+      final List<String> items,
     ) {
-      final UnmodifiableListView<String> items = value.listView;
       if (items.isEmpty) {
         return const Center(child: Text('No items'));
       }
@@ -131,8 +127,8 @@ class _PageCollectionsState extends State<PageCollections> {
 
   Widget _buildSetView() {
     return _controller.rxSorted.build(
-      (final BuildContext context, final ObservableSetState<String> value) {
-        final List<String> items = value.setView.toList();
+      (final BuildContext context, final Set<String> value) {
+        final List<String> items = value.toList();
         if (items.isEmpty) {
           return const Center(child: Text('No items'));
         }
@@ -152,9 +148,9 @@ class _PageCollectionsState extends State<PageCollections> {
     return _controller.rxItemsByLength.build(
       (
         final BuildContext context,
-        final ObservableMapState<int, String> value,
+        final Map<int, String> value,
       ) {
-        final List<MapEntry<int, String>> items = value.mapView.entries.toList();
+        final List<MapEntry<int, String>> items = value.entries.toList();
         if (items.isEmpty) {
           return const Center(child: Text('No items'));
         }

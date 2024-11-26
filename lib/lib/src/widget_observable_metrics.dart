@@ -49,9 +49,7 @@ class _Controller {
   late final Rx<double> _rxOpacity = Rx<double>(0.4);
   late final Rx<bool> _rxTransparentBackground = Rx<bool>(true);
   late final ObservableMap<String, _ListItem> rxItems = _rxSelectedTypes.switchMapAs.map<String, _ListItem>(
-    mapper: (final ObservableSetState<WidgetObservableMetricsType> value) {
-      final UnmodifiableSetView<WidgetObservableMetricsType> items = value.setView;
-
+    mapper: (final Set<WidgetObservableMetricsType> items) {
       return ObservableMap<String, _ListItem>.merged(
         collections: items.map<ObservableMap<String, _ListItem>>((final WidgetObservableMetricsType type) {
           return _createListItemObservableForType(type);
@@ -89,7 +87,8 @@ class _Controller {
   ) {
     return source.transformChangeAs.map<String, _ListItem>(
       transform: (
-        final ObservableMap<String, _ListItem> state,
+        final ObservableMap<String, _ListItem> current,
+        final Map<String, List<DateTime>> state,
         final ObservableMapChange<String, List<DateTime>> change,
         final Emitter<ObservableMapUpdateAction<String, _ListItem>> updater,
       ) {
@@ -129,7 +128,7 @@ class _Controller {
         updater(
           ObservableMapUpdateAction<String, _ListItem>(
             addItems: addItems,
-            removeItems: removedItems,
+            removeKeys: removedItems,
           ),
         );
       },
@@ -235,9 +234,8 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
           child: _controller._rxSelectedTypes.build(
             (
               final BuildContext context,
-              final ObservableSetState<WidgetObservableMetricsType> state,
+              final Set<WidgetObservableMetricsType> types,
             ) {
-              final UnmodifiableSetView<WidgetObservableMetricsType> types = state.setView;
               final String typeString;
               if (types.isEmpty) {
                 typeString = 'None';
@@ -312,9 +310,9 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
 
                                 return _controller.rxItems.build((
                                   final BuildContext context,
-                                  final ObservableMapState<String, _ListItem> state,
+                                  final Map<String, _ListItem> state,
                                 ) {
-                                  final List<_ListItem> items = state.mapView.values.toList();
+                                  final List<_ListItem> items = state.values.toList();
                                   items.sort(
                                     (final _ListItem a, final _ListItem b) => b.count.compareTo(a.count),
                                   );
@@ -404,9 +402,8 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
           content: _controller._rxSelectedTypes.build(
             (
               final BuildContext context,
-              final ObservableSetState<WidgetObservableMetricsType> state,
+              final Set<WidgetObservableMetricsType> selectedTypes,
             ) {
-              final UnmodifiableSetView<WidgetObservableMetricsType> selectedTypes = state.setView;
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
