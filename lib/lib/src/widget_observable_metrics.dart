@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:dart_observable/dart_observable.dart';
 import 'package:dart_observable_builder/dart_observable_builder.dart';
 import 'package:flutter/material.dart';
@@ -228,11 +226,11 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
     final double topPadding = mediaQuery.padding.top;
     final double maxHeight = screenHeight - topPadding;
     return _controller._rxTransparentBackground.build(
-      (final BuildContext context, final bool isTransparent) {
+      builder: (final BuildContext context, final bool isTransparent) {
         return Material(
           color: isTransparent ? Colors.transparent : Colors.black54,
           child: _controller._rxSelectedTypes.build(
-            (
+            builder: (
               final BuildContext context,
               final Set<WidgetObservableMetricsType> types,
             ) {
@@ -298,7 +296,7 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
                     ),
                     Expanded(
                       child: _controller._rxOpacity.build(
-                        (final BuildContext context, final double opacity) {
+                        builder: (final BuildContext context, final double opacity) {
                           return Opacity(
                             opacity: opacity,
                             child: Builder(
@@ -308,75 +306,77 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
                                   return const SizedBox.shrink();
                                 }
 
-                                return _controller.rxItems.build((
-                                  final BuildContext context,
-                                  final Map<String, _ListItem> state,
-                                ) {
-                                  final List<_ListItem> items = state.values.toList();
-                                  items.sort(
-                                    (final _ListItem a, final _ListItem b) => b.count.compareTo(a.count),
-                                  );
-                                  return ListView.builder(
-                                    itemCount: items.length + 1,
-                                    itemBuilder: (
-                                      final BuildContext context,
-                                      final int index,
-                                    ) {
-                                      if (index == 0) {
-                                        // Clear button
-                                        return TextButton(
-                                          style: ButtonStyle(
-                                            minimumSize: WidgetStateProperty.all<Size>(
-                                              const Size(0, 0),
+                                return _controller.rxItems.build(
+                                  builder: (
+                                    final BuildContext context,
+                                    final Map<String, _ListItem> state,
+                                  ) {
+                                    final List<_ListItem> items = state.values.toList();
+                                    items.sort(
+                                      (final _ListItem a, final _ListItem b) => b.count.compareTo(a.count),
+                                    );
+                                    return ListView.builder(
+                                      itemCount: items.length + 1,
+                                      itemBuilder: (
+                                        final BuildContext context,
+                                        final int index,
+                                      ) {
+                                        if (index == 0) {
+                                          // Clear button
+                                          return TextButton(
+                                            style: ButtonStyle(
+                                              minimumSize: WidgetStateProperty.all<Size>(
+                                                const Size(0, 0),
+                                              ),
+                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                             ),
-                                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                          ),
-                                          onPressed: () {
-                                            _controller.clear();
-                                          },
-                                          child: const Text(
-                                            'Clear',
-                                            style: TextStyle(
-                                              color: Colors.blue,
+                                            onPressed: () {
+                                              _controller.clear();
+                                            },
+                                            child: const Text(
+                                              'Clear',
+                                              style: TextStyle(
+                                                color: Colors.blue,
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      }
-                                      final int itemIndex = index - 1;
-                                      final _ListItem item = items[itemIndex];
-                                      final String name = item.name;
-                                      return Row(
-                                        children: <Widget>[
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                SingleChildScrollView(
-                                                  scrollDirection: Axis.horizontal,
-                                                  reverse: true,
-                                                  child: Text(
-                                                    name,
+                                          );
+                                        }
+                                        final int itemIndex = index - 1;
+                                        final _ListItem item = items[itemIndex];
+                                        final String name = item.name;
+                                        return Row(
+                                          children: <Widget>[
+                                            const SizedBox(width: 8),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  SingleChildScrollView(
+                                                    scrollDirection: Axis.horizontal,
+                                                    reverse: true,
+                                                    child: Text(
+                                                      name,
+                                                      maxLines: 1,
+                                                      textAlign: TextAlign.end,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    item.type.toString(),
                                                     maxLines: 1,
                                                     textAlign: TextAlign.end,
                                                   ),
-                                                ),
-                                                Text(
-                                                  item.type.toString(),
-                                                  maxLines: 1,
-                                                  textAlign: TextAlign.end,
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Text(item.count.toString()),
-                                          const SizedBox(width: 8),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                });
+                                            const SizedBox(width: 8),
+                                            Text(item.count.toString()),
+                                            const SizedBox(width: 8),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
                               },
                             ),
                           );
@@ -400,7 +400,7 @@ class _WidgetObservableMetricsState extends State<WidgetObservableMetrics> {
         return AlertDialog(
           title: const Text('Select types'),
           content: _controller._rxSelectedTypes.build(
-            (
+            builder: (
               final BuildContext context,
               final Set<WidgetObservableMetricsType> selectedTypes,
             ) {

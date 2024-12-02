@@ -65,7 +65,7 @@ class _PageCollectionsState extends State<PageCollections> {
   Widget _buildTypeSelector() {
     return Center(
       child: _controller.rxViewType.build(
-        (final BuildContext context, final CollectionViewType buildType) {
+        builder: (final BuildContext context, final CollectionViewType buildType) {
           return CupertinoSegmentedControl<CollectionViewType>(
             groupValue: buildType,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -87,7 +87,7 @@ class _PageCollectionsState extends State<PageCollections> {
 
   Widget _buildViewForType() {
     return _controller.rxViewType.build(
-      (final BuildContext context, final CollectionViewType viewType) {
+      builder: (final BuildContext context, final CollectionViewType viewType) {
         switch (viewType) {
           case CollectionViewType.list:
             return _buildListView();
@@ -101,33 +101,35 @@ class _PageCollectionsState extends State<PageCollections> {
   }
 
   Widget _buildListView() {
-    return _controller.rxSourceList.build((
-      final BuildContext context,
-      final List<String> items,
-    ) {
-      if (items.isEmpty) {
-        return const Center(child: Text('No items'));
-      }
-      return ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (final BuildContext context, final int index) {
-          return ListTile(
-            title: Text(items[index]),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () {
-                _controller.removeItemAt(index);
-              },
-            ),
-          );
-        },
-      );
-    });
+    return _controller.rxSourceList.build(
+      builder: (
+        final BuildContext context,
+        final List<String> items,
+      ) {
+        if (items.isEmpty) {
+          return const Center(child: Text('No items'));
+        }
+        return ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (final BuildContext context, final int index) {
+            return ListTile(
+              title: Text(items[index]),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () {
+                  _controller.removeItemAt(index);
+                },
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   Widget _buildSetView() {
     return _controller.rxSorted.build(
-      (final BuildContext context, final Set<String> value) {
+      builder: (final BuildContext context, final Set<String> value) {
         final List<String> items = value.toList();
         if (items.isEmpty) {
           return const Center(child: Text('No items'));
@@ -146,7 +148,7 @@ class _PageCollectionsState extends State<PageCollections> {
 
   Widget _buildMapView() {
     return _controller.rxItemsByLength.build(
-      (
+      builder: (
         final BuildContext context,
         final Map<int, String> value,
       ) {

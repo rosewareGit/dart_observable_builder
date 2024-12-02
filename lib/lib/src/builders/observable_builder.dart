@@ -1,10 +1,11 @@
 import 'package:dart_observable/dart_observable.dart';
 import 'package:dart_observable_builder/lib/src/builders/observable_element.dart';
 import 'package:dart_observable_builder/lib/src/extensions.dart';
-import 'package:dart_observable_builder/lib/src/types.dart';
 import 'package:flutter/widgets.dart';
 
 import 'base_builder.dart';
+
+typedef ValueBuilder<T> = Widget Function(BuildContext context, T value);
 
 class ObservableBuilder<T> extends ObservableBuilderBase {
   const ObservableBuilder(

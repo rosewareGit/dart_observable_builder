@@ -45,9 +45,9 @@ class _PageSimpleState extends State<PageSimple> {
               const Divider(),
               _buildMappedFilteredValue(),
               const SizedBox(height: 40),
-              const Center(child: Text('Flatmap')),
+              const Center(child: Text('SwitchMap')),
               const SizedBox(height: 10),
-              _buildFlatMapValue(),
+              _buildSwitchMapValue(),
             ],
           ),
         ),
@@ -66,7 +66,7 @@ class _PageSimpleState extends State<PageSimple> {
         ),
         Expanded(
           child: _controller.rxCounter.build(
-            (final BuildContext context, final int value) {
+            builder: (final BuildContext context, final int value) {
               return Text('Counter: $value', textAlign: TextAlign.center);
             },
           ),
@@ -83,7 +83,7 @@ class _PageSimpleState extends State<PageSimple> {
 
   Widget _buildMappedValue() {
     return _controller.rxCounterMapped.build(
-      (final BuildContext context, final String value) {
+      builder: (final BuildContext context, final String value) {
         return Text(value, textAlign: TextAlign.start);
       },
     );
@@ -94,7 +94,7 @@ class _PageSimpleState extends State<PageSimple> {
       children: <Widget>[
         const Text('Odd: '),
         _controller.rxOdd.build(
-          (final BuildContext context, final int? value) {
+          builder: (final BuildContext context, final int? value) {
             return Text(value?.toString() ?? 'N/A', textAlign: TextAlign.start);
           },
         ),
@@ -104,15 +104,15 @@ class _PageSimpleState extends State<PageSimple> {
 
   Widget _buildMappedFilteredValue() {
     return _controller.rxMappedFiltered.build(
-      (final BuildContext context, final String? value) {
+      builder: (final BuildContext context, final String? value) {
         return Text(value ?? 'N/A', textAlign: TextAlign.start);
       },
     );
   }
 
-  Widget _buildFlatMapValue() {
+  Widget _buildSwitchMapValue() {
     return _controller.rxFlatMap.build(
-      (final BuildContext context, final int value) {
+      builder: (final BuildContext context, final int value) {
         return Text(value.toString(), textAlign: TextAlign.start);
       },
     );
