@@ -1,10 +1,27 @@
 import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/lib/src/extensions.dart';
+import 'package:dart_observable_builder/src/extensions.dart';
 import 'package:flutter/widgets.dart';
 
 import 'base_builder.dart';
 import 'observable_element.dart';
 
+/// A widget that listens to two [Observable]s and rebuilds when either observable changes.
+///
+/// The [ObservableBuilder2] takes two [Observable]s and a builder function to build the widget.
+/// Optionally, a [shouldRebuild] function can be provided to control when the widget should rebuild.
+///
+/// Example usage:
+/// ```dart
+/// final Rx<int> rxInt = Rx<int>(0);
+/// final RxString rxString = RxString('');
+/// ObservableBuilder2<int, String>(
+///   rxInt,
+///   rxString,
+///   builder: (BuildContext context, int number, String text) {
+///     return Text('$number: $text');
+///   },
+/// );
+/// ```
 class ObservableBuilder2<T, T2> extends ObservableBuilderBase {
   const ObservableBuilder2(
     this.observable1,

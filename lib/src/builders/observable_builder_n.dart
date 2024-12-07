@@ -1,9 +1,10 @@
 import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/lib/src/builders/observable_element.dart';
+import 'package:dart_observable_builder/src/builders/observable_element.dart';
 import 'package:flutter/widgets.dart';
 
 import 'base_builder.dart';
 
+/// Similar to [ObservableBuilder3], but with an arbitrary number of observables.
 class ObservableBuilderN extends ObservableBuilderBase {
   const ObservableBuilderN(
     this.observables, {

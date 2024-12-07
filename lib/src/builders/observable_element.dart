@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:dart_observable/dart_observable.dart';
 import 'package:flutter/material.dart';
 
 import 'base_builder.dart';
 
 class ObservableElement extends StatelessElement {
-
   ObservableElement({
     required this.observables,
     required final ObservableBuilderBase owner,
@@ -59,6 +60,8 @@ class ObservableElement extends StatelessElement {
     _listeners.clear();
   }
 
+  bool rebuildScheduled = false;
+
   void _initListeners() {
     for (final Observable<dynamic> observable in observables) {
       _listeners.add(
@@ -72,7 +75,15 @@ class ObservableElement extends StatelessElement {
                       .toList(),
                 ) !=
                 false) {
-              markNeedsBuild();
+              if (mounted && rebuildScheduled == false) {
+                rebuildScheduled = true;
+                scheduleMicrotask(() {
+                  if (mounted) {
+                    markNeedsBuild();
+                  }
+                  rebuildScheduled = false;
+                });
+              }
             }
           },
         ),

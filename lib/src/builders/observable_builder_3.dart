@@ -1,10 +1,12 @@
 import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/lib/src/extensions.dart';
+import 'package:dart_observable_builder/dart_observable_builder.dart';
+import 'package:dart_observable_builder/src/extensions.dart';
 import 'package:flutter/widgets.dart';
 
 import 'base_builder.dart';
 import 'observable_element.dart';
 
+/// Similar to [ObservableBuilder2], but with three observables.
 class ObservableBuilder3<T, T2, T3> extends ObservableBuilderBase {
   const ObservableBuilder3(
     this.observable1,
