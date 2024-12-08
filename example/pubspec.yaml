@@ -1,9 +1,9 @@
-name: dart_observable_builder_example
+name: fl_observable_example
 description: Example application.
 version: 1.0.0
 publish_to: 'none'
-repository: https://github.com/rosewareGit/dart_observable_builder
-issue_tracker: https://github.com/rosewareGit/dart_observable_builder/issues
+repository: https://github.com/rosewareGit/fl_observable
+issue_tracker: https://github.com/rosewareGit/fl_observable/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -14,10 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   dart_observable: ^1.0.2
-  dart_observable_builder: ^1.0.0
-
-dependency_overrides:
-  dart_observable_builder:
+  fl_observable:
     path: ../
 
 dev_dependencies:

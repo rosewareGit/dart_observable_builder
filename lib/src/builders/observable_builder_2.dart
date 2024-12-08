@@ -1,5 +1,5 @@
 import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/src/extensions.dart';
+import 'package:fl_observable/src/extensions.dart';
 import 'package:flutter/widgets.dart';
 
 import 'base_builder.dart';

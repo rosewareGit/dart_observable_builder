@@ -9,15 +9,15 @@ import 'listener_handler.dart';
 ///
 /// Example usage:
 /// ```dart
-/// MultiObserverListener(
+/// MultiObservableListener(
 ///   handlers: [
-///     ObserverListenerHandler<int>(
+///     ObservableListenerHandler<int>(
 ///       observable: myObservable1,
 ///       onChanged: (context, value) {
 ///         print('Observable 1 value changed: $value');
 ///       },
 ///     ),
-///     ObserverListenerHandler<String>(
+///     ObservableListenerHandler<String>(
 ///       observable: myObservable2,
 ///       onChanged: (context, value) {
 ///         print('Observable 2 value changed: $value');
@@ -27,14 +27,14 @@ import 'listener_handler.dart';
 ///   child: Text('Listening to multiple observables'),
 /// );
 /// ```
-class MultiObserverListener extends StatelessWidget {
-  const MultiObserverListener({
+class MultiObservableListener extends StatelessWidget {
+  const MultiObservableListener({
     required this.handlers,
     this.child,
     super.key,
   });
 
-  final List<ObserverListenerHandler<dynamic>> handlers;
+  final List<ObservableListenerHandler<dynamic>> handlers;
   final Widget? child;
 
   @override
@@ -57,7 +57,7 @@ class _Element extends StatelessElement {
     required this.handlers,
   });
 
-  List<ObserverListenerHandler<dynamic>> handlers;
+  List<ObservableListenerHandler<dynamic>> handlers;
 
   final List<Disposable> _currentListeners = <Disposable>[];
   late final Element _parent;
@@ -72,15 +72,15 @@ class _Element extends StatelessElement {
   }
 
   @override
-  void update(final MultiObserverListener newWidget) {
-    final List<ObserverListenerHandler<dynamic>> oldHandlers = (widget as MultiObserverListener).handlers;
-    final List<ObserverListenerHandler<dynamic>> newHandlers = newWidget.handlers;
+  void update(final MultiObservableListener newWidget) {
+    final List<ObservableListenerHandler<dynamic>> oldHandlers = (widget as MultiObservableListener).handlers;
+    final List<ObservableListenerHandler<dynamic>> newHandlers = newWidget.handlers;
     final bool didChangeObservables;
 
     if (oldHandlers.length != newHandlers.length) {
       didChangeObservables = true;
     } else {
-      didChangeObservables = oldHandlers.any((final ObserverListenerHandler<dynamic> handler) {
+      didChangeObservables = oldHandlers.any((final ObservableListenerHandler<dynamic> handler) {
         return !newHandlers.contains(handler);
       });
     }
@@ -109,7 +109,7 @@ class _Element extends StatelessElement {
   }
 
   void _registerListeners() {
-    for (final ObserverListenerHandler<dynamic> handler in handlers) {
+    for (final ObservableListenerHandler<dynamic> handler in handlers) {
       _currentListeners.add(
         handler.listen(_parent),
       );

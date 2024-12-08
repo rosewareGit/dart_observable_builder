@@ -1,17 +1,16 @@
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/dart_observable_builder.dart';
-import 'package:dart_observable_builder_example/components/info_row.dart';
-import 'package:dart_observable_builder_example/components/list_item.dart';
-import 'package:dart_observable_builder_example/snackbars.dart';
-import 'package:dart_observable_builder_example/styles/theme.dart';
+import 'package:fl_observable/fl_observable.dart';
+import 'package:fl_observable_example/components/info_row.dart';
+import 'package:fl_observable_example/components/list_item.dart';
+import 'package:fl_observable_example/snackbars.dart';
+import 'package:fl_observable_example/styles/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'components/number_with_controls.dart';
-import 'components/segmenter_item.dart';
+import 'components/segmented_item.dart';
 
 void main() {
   // Automatically tracks any update on the observables,
@@ -211,7 +210,7 @@ class _PageSimpleState extends State<_PageSimple> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           // Listen to the counter changes and show a snackbar every 5th change
-          ObserverListener<int>(
+          ObservableListener<int>(
             observable: _controller.rxCounter,
             shouldNotify: (final int counter) => counter % 5 == 0,
             onChanged: (final BuildContext context, final int counter) {

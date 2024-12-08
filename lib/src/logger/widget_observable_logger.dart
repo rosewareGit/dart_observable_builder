@@ -1,6 +1,6 @@
 import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/src/logger/types/floating_bottom.dart';
-import 'package:dart_observable_builder/src/logger/types/pinned_bottom.dart';
+import 'package:fl_observable/src/logger/types/floating_bottom.dart';
+import 'package:fl_observable/src/logger/types/pinned_bottom.dart';
 import 'package:flutter/material.dart';
 
 import 'types/draggable.dart';

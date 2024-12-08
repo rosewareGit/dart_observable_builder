@@ -2,8 +2,8 @@ import 'package:dart_observable/dart_observable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ObserverListenerHandler<T> {
-  const ObserverListenerHandler({
+class ObservableListenerHandler<T> {
+  const ObservableListenerHandler({
     required this.observable,
     required this.onChanged,
     this.shouldNotify,

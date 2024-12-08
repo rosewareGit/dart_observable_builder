@@ -1,4 +1,4 @@
-import 'package:dart_observable_builder_example/styles/theme.dart';
+import 'package:fl_observable_example/styles/theme.dart';
 import 'package:flutter/material.dart';
 
 class WidgetInfoRow extends StatelessWidget {

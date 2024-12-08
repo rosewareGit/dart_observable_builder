@@ -1,5 +1,4 @@
-import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/dart_observable_builder.dart';
+import 'package:fl_observable/fl_observable.dart';
 import 'package:flutter/material.dart';
 
 import 'list_item.dart';

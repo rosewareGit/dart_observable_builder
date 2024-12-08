@@ -53,17 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: dart_observable
-      sha256: "0a145ab0f9996c9a4a4f9431c603d7032c158b52a9732ed53f6614754be93cc6"
+      sha256: c80a9019f1a29ca987a6572fddffdb4dc8c3a1815e5b49e8b001f7b17b893ef2
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
-  dart_observable_builder:
-    dependency: "direct main"
-    description:
-      path: ".."
-      relative: true
-    source: path
-    version: "1.0.0"
+    version: "1.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -72,6 +65,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  fl_observable:
+    dependency: "direct main"
+    description:
+      path: ".."
+      relative: true
+    source: path
+    version: "1.0.0"
   flutter:
     dependency: "direct main"
     description: flutter

@@ -1,7 +1,6 @@
-import 'package:dart_observable/dart_observable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../dart_observable_builder.dart';
+import '../../../../fl_observable.dart';
 
 class LoggerTypeSelector extends StatelessWidget {
   const LoggerTypeSelector({

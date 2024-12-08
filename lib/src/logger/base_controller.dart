@@ -1,5 +1,5 @@
 import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/src/logger/widget_observable_logger.dart';
+import 'package:fl_observable/src/logger/widget_observable_logger.dart';
 
 import 'components/list_item.dart';
 

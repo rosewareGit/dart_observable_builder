@@ -1,6 +1,5 @@
-import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/dart_observable_builder.dart';
-import 'package:dart_observable_builder_example/styles/theme.dart';
+import 'package:fl_observable/fl_observable.dart';
+import 'package:fl_observable_example/styles/theme.dart';
 import 'package:flutter/material.dart';
 
 class WidgetNumberWithControls extends StatelessWidget {

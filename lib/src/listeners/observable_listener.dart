@@ -1,5 +1,4 @@
-import 'package:dart_observable/dart_observable.dart';
-import 'package:dart_observable_builder/dart_observable_builder.dart';
+import 'package:fl_observable/fl_observable.dart';
 import 'package:flutter/widgets.dart';
 
 import 'listener_handler.dart';
@@ -7,7 +6,7 @@ import 'listener_handler.dart';
 /// A widget that listens to changes in an [Observable] and triggers a callback
 /// when the observable changes.
 ///
-/// The [ObserverListener] widget listens to an [Observable] and calls the
+/// The [ObservableListener] widget listens to an [Observable] and calls the
 /// [onChanged] callback whenever the observable's value changes. It can also
 /// optionally call the [onError] callback if an error occurs, and the
 /// [shouldNotify] callback to determine whether to notify on changes.
@@ -18,7 +17,7 @@ import 'listener_handler.dart';
 ///
 /// Example usage:
 /// ```dart
-/// ObserverListener<int>(
+/// ObservableListener<int>(
 ///   observable: myObservable,
 ///   onChanged: (context, value) {
 ///     print('Observable value changed: $value');
@@ -31,8 +30,8 @@ import 'listener_handler.dart';
 ///   child: Text('Listening to observable'),
 /// );
 /// ```
-class ObserverListener<T> extends StatelessWidget {
-  const ObserverListener({
+class ObservableListener<T> extends StatelessWidget {
+  const ObservableListener({
     required this.observable,
     required this.onChanged,
     this.shouldNotify,
@@ -51,9 +50,9 @@ class ObserverListener<T> extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return MultiObserverListener(
-      handlers: <ObserverListenerHandler<T>>[
-        ObserverListenerHandler<T>(
+    return MultiObservableListener(
+      handlers: <ObservableListenerHandler<T>>[
+        ObservableListenerHandler<T>(
           observable: observable,
           onChanged: onChanged,
           onError: onError,

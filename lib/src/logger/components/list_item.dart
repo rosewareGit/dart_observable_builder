@@ -1,4 +1,4 @@
-import '../../../../dart_observable_builder.dart';
+import '../../../../fl_observable.dart';
 
 class LoggerListItem {
   LoggerListItem({
