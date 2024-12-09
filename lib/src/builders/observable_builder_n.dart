@@ -10,17 +10,23 @@ class ObservableBuilderN extends ObservableBuilderBase {
     this.observables, {
     required this.builder,
     this.shouldRebuild,
+    this.child,
     super.key,
   });
 
   @override
   final List<Observable<dynamic>> observables;
   final bool Function(List<dynamic> values)? shouldRebuild;
-  final Widget Function(BuildContext context, List<dynamic> values) builder;
+  final Widget Function(BuildContext context, List<dynamic> values, Widget? child) builder;
+  final Widget? child;
 
   @override
   Widget build(final BuildContext context) {
-    return builder(context, observables.map((final Observable<dynamic> observable) => observable.value).toList());
+    final List<dynamic> values = <dynamic>[];
+    for (final Observable<dynamic> observable in observables) {
+      values.add(observable.value);
+    }
+    return builder(context, values, child);
   }
 
   @override

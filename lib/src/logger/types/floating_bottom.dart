@@ -54,7 +54,7 @@ class _WidgetFloatingBottomLoggerState extends State<WidgetFloatingBottomLogger>
         final double maxHeight = screenHeight - topPadding;
 
         return _controller.rxDarkMode.build(
-          builder: (final BuildContext context, final bool showDarkMode) {
+          builder: (final BuildContext context, final bool showDarkMode, final Widget? child) {
             return LoggerItemList(
               rxItems: _controller.rxItems,
               showDarkMode: showDarkMode,
@@ -123,7 +123,12 @@ class _WidgetFloatingBottomLoggerState extends State<WidgetFloatingBottomLogger>
     return ObservableBuilder2<double, bool>(
       _controller.rxDragPosition,
       _controller.rxAnimate,
-      builder: (final BuildContext context, final double diff, final bool animate) {
+      builder: (
+        final BuildContext context,
+        final double diff,
+        final bool animate,
+        final Widget? child,
+      ) {
         final double floatingDragPosition = FloatingBottomLoggerController.floatingControlHeight + diff;
 
         return AnimatedPositioned(
@@ -145,7 +150,11 @@ class _WidgetFloatingBottomLoggerState extends State<WidgetFloatingBottomLogger>
 
   Widget _buildOptions() {
     return _controller.rxDragPosition.build(
-      builder: (final BuildContext context, final double dragPosition) {
+      builder: (
+        final BuildContext context,
+        final double dragPosition,
+        final Widget? child,
+      ) {
         return AnimatedOpacity(
           opacity: dragPosition == 0 ? 0 : 1,
           duration: const Duration(milliseconds: 200),

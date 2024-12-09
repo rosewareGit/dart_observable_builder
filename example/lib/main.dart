@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
           builder: (
             final BuildContext context,
             final WidgetObservableLoggerViewType viewType,
+            final _,
           ) {
             return WidgetObservableLogger(
               viewType: viewType,
@@ -125,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (
                     final BuildContext context,
                     final WidgetObservableLoggerViewType viewType,
+                    final _,
                   ) {
                     return SegmentedButton<WidgetObservableLoggerViewType>(
                       segments: const <ButtonSegment<WidgetObservableLoggerViewType>>[
@@ -260,7 +262,7 @@ class _PageSimpleState extends State<_PageSimple> {
 
   Widget _buildMappedValue() {
     return _controller.rxCounterMapped.build(
-      builder: (final BuildContext context, final int value) {
+      builder: (final BuildContext context, final int value, final _) {
         return WidgetInfoRow(
           info: 'Counter * 3',
           title: 'Map',
@@ -272,7 +274,7 @@ class _PageSimpleState extends State<_PageSimple> {
 
   Widget _buildOddValue() {
     return _controller.rxFilterOddNumbers.build(
-      builder: (final BuildContext context, final int? value) {
+      builder: (final BuildContext context, final int? value, final _) {
         return WidgetInfoRow(
           title: 'Filter',
           info: 'Last Odd number',
@@ -284,7 +286,7 @@ class _PageSimpleState extends State<_PageSimple> {
 
   Widget _buildMappedFilteredValue() {
     return _controller.rxMappedFiltered.build(
-      builder: (final BuildContext context, final String? value) {
+      builder: (final BuildContext context, final String? value, final _) {
         return WidgetInfoRow(
           title: 'Filter + Map',
           info: 'Filter the mapped value that contains 3 or 6, and transforms it to text',
@@ -296,7 +298,7 @@ class _PageSimpleState extends State<_PageSimple> {
 
   Widget _buildStreamValue() {
     return _controller.fromStream.build(
-      builder: (final BuildContext context, final int value) {
+      builder: (final BuildContext context, final int value, final _) {
         return WidgetInfoRow(
           title: 'From stream',
           info: 'The observable is updated from the stream. The stream is updated every second',
@@ -313,7 +315,7 @@ class _PageSimpleState extends State<_PageSimple> {
         children: <Widget>[
           Text('Switch to', style: context.textStyles.subtitle),
           _controller.rxSwitchMapSource.build(
-            builder: (final BuildContext context, final bool useOdd) {
+            builder: (final BuildContext context, final bool useOdd, final _) {
               return SegmentedButton<bool>(
                 segments: const <ButtonSegment<bool>>[
                   ButtonSegment<bool>(
@@ -342,7 +344,7 @@ class _PageSimpleState extends State<_PageSimple> {
           ),
           const SizedBox(width: 10),
           _controller.rxSwitchMap.build(
-            builder: (final BuildContext context, final int value) {
+            builder: (final BuildContext context, final int value, final _) {
               return Text(
                 'Value:  $value',
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -374,7 +376,7 @@ class _PageSimpleState extends State<_PageSimple> {
 
   Widget _buildCombinedValue() {
     return _controller.rxCombined.build(
-      builder: (final BuildContext context, final String value) {
+      builder: (final BuildContext context, final String value, final _) {
         return WidgetInfoRow(
           title: 'CombineWith',
           value: value,
@@ -525,7 +527,7 @@ class _PageCollectionsState extends State<_PageCollections> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         _controller.rxSourceList.build(
-          builder: (final BuildContext context, final List<String> sourceList) {
+          builder: (final BuildContext context, final List<String> sourceList, final _) {
             final int length = sourceList.length;
             final bool show = length >= 50000;
 
@@ -567,7 +569,7 @@ class _PageCollectionsState extends State<_PageCollections> {
   Widget _buildTypeSelector() {
     return Center(
       child: _controller.rxViewType.build(
-        builder: (final BuildContext context, final CollectionViewType buildType) {
+        builder: (final BuildContext context, final CollectionViewType buildType, final _) {
           return CupertinoSegmentedControl<CollectionViewType>(
             groupValue: buildType,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -589,7 +591,7 @@ class _PageCollectionsState extends State<_PageCollections> {
 
   Widget _buildViewForType() {
     return _controller.rxViewType.build(
-      builder: (final BuildContext context, final CollectionViewType viewType) {
+      builder: (final BuildContext context, final CollectionViewType viewType, final _) {
         switch (viewType) {
           case CollectionViewType.list:
             return _buildListContent();
@@ -617,7 +619,7 @@ The list performance will not degrade with a large number of items''',
         ),
         const SizedBox(height: 10),
         _controller.rxSourceListLength.build(
-          builder: (final BuildContext context, final String length) {
+          builder: (final BuildContext context, final String length, final _) {
             return _buildLengthView(length);
           },
         ),
@@ -626,6 +628,7 @@ The list performance will not degrade with a large number of items''',
             builder: (
               final BuildContext context,
               final List<String> items,
+              final _,
             ) {
               if (items.isEmpty) {
                 return const Center(child: Text('No items'));
@@ -661,7 +664,7 @@ The list performance will not degrade with a large number of items''',
 
   Widget _buildListContent() {
     return _controller.rxListType.build(
-      builder: (final BuildContext context, final ListType listType) {
+      builder: (final BuildContext context, final ListType listType, final _) {
         final Widget content;
         switch (listType) {
           case ListType.source:
@@ -728,13 +731,13 @@ When the source list is updated, only the change is re-sorted and not the entire
         ),
         const SizedBox(height: 10),
         _controller.rxSetLength.build(
-          builder: (final BuildContext context, final String length) {
+          builder: (final BuildContext context, final String length, final _) {
             return _buildLengthView(length);
           },
         ),
         Expanded(
           child: _controller.rxSortedSet.build(
-            builder: (final BuildContext context, final Set<String> value) {
+            builder: (final BuildContext context, final Set<String> value, final _) {
               final List<String> items = value.toList();
               if (items.isEmpty) {
                 return const Center(child: Text('No items'));
@@ -784,6 +787,7 @@ When the source list is updated, the numbers are re-calculated based on the chan
             builder: (
               final BuildContext context,
               final Map<int, int> value,
+              final _,
             ) {
               final List<MapEntry<int, int>> items = value.entries.toList();
               if (items.isEmpty) {
@@ -829,7 +833,7 @@ The list sorted alphabetically automatically when the source list changes''',
         ),
         const SizedBox(height: 10),
         _controller.rxFilteredListLength.build(
-          builder: (final BuildContext context, final String length) {
+          builder: (final BuildContext context, final String length, final _) {
             return _buildLengthView(length);
           },
         ),
@@ -838,6 +842,7 @@ The list sorted alphabetically automatically when the source list changes''',
             builder: (
               final BuildContext context,
               final List<String> items,
+              final _,
             ) {
               if (items.isEmpty) {
                 return const Center(child: Text('No items'));
@@ -884,7 +889,7 @@ The key is the length, the value is the number of items with that length''',
         ),
         const SizedBox(height: 10),
         _controller.rxMappedListLength.build(
-          builder: (final BuildContext context, final String length) {
+          builder: (final BuildContext context, final String length, final _) {
             return _buildLengthView(length);
           },
         ),
@@ -893,6 +898,7 @@ The key is the length, the value is the number of items with that length''',
             builder: (
               final BuildContext context,
               final List<String> items,
+              final _,
             ) {
               if (items.isEmpty) {
                 return const Center(child: Text('No items'));

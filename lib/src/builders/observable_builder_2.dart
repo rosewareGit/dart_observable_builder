@@ -17,7 +17,7 @@ import 'observable_element.dart';
 /// ObservableBuilder2<int, String>(
 ///   rxInt,
 ///   rxString,
-///   builder: (BuildContext context, int number, String text) {
+///   builder: (BuildContext context, int number, String text, Widget? child) {
 ///     return Text('$number: $text');
 ///   },
 /// );
@@ -28,20 +28,22 @@ class ObservableBuilder2<T, T2> extends ObservableBuilderBase {
     this.observable2, {
     required this.builder,
     this.shouldRebuild,
+    this.child,
     super.key,
   });
 
   final Observable<T> observable1;
   final Observable<T2> observable2;
   final bool Function(T value1, T2 value2)? shouldRebuild;
-  final Widget Function(BuildContext context, T value1, T2 value2) builder;
+  final Widget Function(BuildContext context, T value1, T2 value2, Widget? child) builder;
+  final Widget? child;
 
   @override
   List<Observable<dynamic>> get observables => <Observable<dynamic>>[observable1, observable2];
 
   @override
   Widget build(final BuildContext context) {
-    return builder(context, observable1.value, observable2.value);
+    return builder(context, observable1.value, observable2.value, child);
   }
 
   @override

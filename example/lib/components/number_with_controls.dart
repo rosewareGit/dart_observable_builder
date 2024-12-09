@@ -32,7 +32,7 @@ class WidgetNumberWithControls extends StatelessWidget {
           width: titleWidth,
           child: Center(
             child: rxNumber.build(
-              builder: (final BuildContext context, final int number) {
+              builder: (final BuildContext context, final int number, final _) {
                 return RichText(
                   text: TextSpan(
                     text: '$title: ',

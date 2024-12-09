@@ -32,9 +32,9 @@ class LoggerBaseController {
   void toggleLoggerType(final WidgetObservableLoggerType type) {
     final bool contains = _rxSelectedTypes.value.contains(type);
     if (contains) {
-      _rxSelectedTypes.value.remove(type);
+      _rxSelectedTypes.remove(type);
     } else {
-      _rxSelectedTypes.value.add(type);
+      _rxSelectedTypes.add(type);
     }
   }
 

@@ -13,6 +13,7 @@ class ObservableBuilder3<T, T2, T3> extends ObservableBuilderBase {
     this.observable3, {
     required this.builder,
     this.shouldRebuild,
+    this.child,
     super.key,
   });
 
@@ -20,14 +21,15 @@ class ObservableBuilder3<T, T2, T3> extends ObservableBuilderBase {
   final Observable<T2> observable2;
   final Observable<T3> observable3;
   final bool Function(T value1, T2 value2, T3 value3)? shouldRebuild;
-  final Widget Function(BuildContext context, T value1, T2 value2, T3 value3) builder;
+  final Widget Function(BuildContext context, T value1, T2 value2, T3 value3, Widget? child) builder;
+  final Widget? child;
 
   @override
   List<Observable<dynamic>> get observables => <Observable<dynamic>>[observable1, observable2, observable3];
 
   @override
   Widget build(final BuildContext context) {
-    return builder(context, observable1.value, observable2.value, observable3.value);
+    return builder(context, observable1.value, observable2.value, observable3.value, child);
   }
 
   @override

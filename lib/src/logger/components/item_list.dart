@@ -29,6 +29,7 @@ class LoggerItemList extends StatelessWidget {
           builder: (
             final BuildContext context,
             final Map<String, LoggerListItem> state,
+            final Widget? child,
           ) {
             final List<LoggerListItem> items = state.values.toList();
 

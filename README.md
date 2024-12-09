@@ -13,7 +13,7 @@ You can pass an optional `shouldRebuild` function to avoid unwanted rebuilds.
     final Rx<int> rxInt = Rx<int>(0);
     ObservableBuilder<int>(
       rxInt,
-      builder: (BuildContext context, int value) {
+      builder: (BuildContext context, int value, Widget? child) {
         return Text(value.toString());
       },
     );
@@ -24,7 +24,7 @@ You can use the extension method on Observable to build the widget.
 ```
     final Rx<int> rxInt = Rx<int>(0);
     rxInt.build(
-      builder: (BuildContext context, int value) {
+      builder: (BuildContext context, int value, Widget? child) {
         return Text(value.toString());
       },
     );
@@ -38,7 +38,7 @@ If you want to listen on multiple observables, you can use the other Builder com
     ObservableBuilder2<int, String>(
       rxInt,
       rxString,
-      builder: (BuildContext context, int number, String text) {
+      builder: (BuildContext context, int number, String text, Widget? child) {
         return Text('$number: $text');
       },
     );
@@ -87,8 +87,9 @@ For multiple listeners you can use `MultiObservableListener`.
 
 ### Logger
 
-If you enabled the global logger, you can visualize the changes on the observables.  
- - To enable the logger, use `ObservableGlobalLogger.enableGlobalLogger()`.
+If you enabled the global logger, you can visualize the changes on the observables.
+
+- To enable the logger, use `ObservableGlobalLogger.enableGlobalLogger()`.
 
 Wrap your content with `WidgetObservableLogger`.
 

@@ -5,8 +5,6 @@ import 'package:flutter/widgets.dart';
 
 import 'base_builder.dart';
 
-typedef ValueBuilder<T> = Widget Function(BuildContext context, T value);
-
 /// A widget that listens to an [Observable] and rebuilds when the observable changes.
 ///
 /// The [ObservableBuilder] takes an [Observable] and a [ValueBuilder] to build the widget.
@@ -17,31 +15,49 @@ typedef ValueBuilder<T> = Widget Function(BuildContext context, T value);
 /// final Rx<int> rxInt = Rx<int>(0);
 /// ObservableBuilder<int>(
 ///   rxInt,
-///   builder: (BuildContext context, int value) {
+///   builder: (BuildContext context, int value, Widget? child) {
 ///     return Text(value.toString());
 ///   },
 /// );
 /// ```
-///
+/// You can also provide a [child] widget that will not rebuild when the observable changes.
+/// The same [child] widget is passed back to the [builder] function.
+/// ```dart
+/// final Rx<int> rxInt = Rx<int>(0);
+///  ObservableBuilder<int>(
+///    rxInt,
+///    builder: (BuildContext context, int value, Widget? child) {
+///      return Column(
+///        children: <Widget>[
+///          child!,
+///          Text(value.toString()),
+///        ],
+///      );
+///    },
+///    child: const Text('This wont rebuild'),
+///  );
+///  ```
 /// If you want to listen to multiple observables, use [ObservableBuilder2] or other similar builders.
 class ObservableBuilder<T> extends ObservableBuilderBase {
   const ObservableBuilder(
     this.observable, {
     required this.builder,
     this.shouldRebuild,
+    this.child,
     super.key,
   });
 
   final Observable<T> observable;
   final bool Function(T current)? shouldRebuild;
-  final ValueBuilder<T> builder;
+  final ValueWidgetBuilder<T> builder;
+  final Widget? child;
 
   @override
   List<Observable<dynamic>> get observables => <Observable<dynamic>>[observable];
 
   @override
   Widget build(final BuildContext context) {
-    return builder(context, observable.value);
+    return builder(context, observable.value, child);
   }
 
   @override

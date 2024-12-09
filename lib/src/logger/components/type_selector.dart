@@ -18,6 +18,7 @@ class LoggerTypeSelector extends StatelessWidget {
       builder: (
         final BuildContext context,
         final Set<WidgetObservableLoggerType> selectedTypes,
+        final Widget? child,
       ) {
         return Column(
           mainAxisSize: MainAxisSize.min,

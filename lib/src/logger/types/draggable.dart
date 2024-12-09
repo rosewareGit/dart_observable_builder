@@ -46,7 +46,7 @@ class _WidgetDraggableLoggerState extends State<WidgetDraggableLogger> {
 
   Widget _buildBottomRightHandle() {
     return _controller.rxOpened.build(
-      builder: (final BuildContext context, final bool opened) {
+      builder: (final BuildContext context, final bool opened, final _) {
         if (opened == false) {
           return const Positioned(
             width: 0,
@@ -56,7 +56,7 @@ class _WidgetDraggableLoggerState extends State<WidgetDraggableLogger> {
         }
 
         return _controller.rxBottomRightOffset.build(
-          builder: (final BuildContext context, final Offset offset) {
+          builder: (final BuildContext context, final Offset offset, final _) {
             return Positioned(
               right: offset.dx,
               bottom: offset.dy,
@@ -117,7 +117,7 @@ class _WidgetDraggableLoggerState extends State<WidgetDraggableLogger> {
         final double maxHeight = screenHeight - topPadding;
 
         return _controller.rxDarkMode.build(
-          builder: (final BuildContext context, final bool showDarkMode) {
+          builder: (final BuildContext context, final bool showDarkMode, final _) {
             return LoggerItemList(
               rxItems: _controller.rxItems,
               showDarkMode: showDarkMode,
@@ -141,6 +141,7 @@ class _WidgetDraggableLoggerState extends State<WidgetDraggableLogger> {
         final Offset topLeft,
         final Offset bottomRight,
         final bool opened,
+        final _,
       ) {
         return Positioned(
           top: topLeft.dy,
@@ -189,7 +190,7 @@ class _WidgetDraggableLoggerState extends State<WidgetDraggableLogger> {
     required final bool showBelowContent,
   }) {
     return _controller.rxOpened.build(
-      builder: (final BuildContext context, final bool opened) {
+      builder: (final BuildContext context, final bool opened, final _) {
         if (opened == false) {
           return const Positioned(
             width: 0,
@@ -205,6 +206,7 @@ class _WidgetDraggableLoggerState extends State<WidgetDraggableLogger> {
             final BuildContext context,
             final Offset topLeft,
             final Offset bottomRight,
+            final _,
           ) {
             return Positioned(
               top: topLeft.dy + DraggableLoggerController.headerHeight,
@@ -212,7 +214,7 @@ class _WidgetDraggableLoggerState extends State<WidgetDraggableLogger> {
               right: bottomRight.dx,
               bottom: bottomRight.dy,
               child: _controller.rxShowBelowContent.build(
-                builder: (final BuildContext context, final bool rxBelowContent) {
+                builder: (final BuildContext context, final bool rxBelowContent, final _) {
                   if (showBelowContent != rxBelowContent) {
                     return const SizedBox.shrink();
                   }
@@ -297,7 +299,7 @@ class _WidgetDraggableLoggerState extends State<WidgetDraggableLogger> {
           PopupMenuItem<String>(
             value: 'position',
             child: _controller.rxShowBelowContent.build(
-              builder: (final BuildContext context, final bool showBelowContent) {
+              builder: (final BuildContext context, final bool showBelowContent, final _) {
                 if (showBelowContent) {
                   return const Text('Bring to front');
                 }

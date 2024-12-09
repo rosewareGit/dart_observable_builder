@@ -39,7 +39,7 @@ class _WidgetListItemState extends State<WidgetListItem> {
       minVerticalPadding: 0,
       minTileHeight: 32,
       title: widget.controller.rxEditingItems.build(
-        builder: (final BuildContext context, final Set<String> items) {
+        builder: (final BuildContext context, final Set<String> items, _) {
           final bool isEditing = items.contains(item);
           if (isEditing) {
             return TextField(
@@ -57,7 +57,7 @@ class _WidgetListItemState extends State<WidgetListItem> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           widget.controller.rxEditingItems.build(
-            builder: (final BuildContext context, final Set<String> editingItems) {
+            builder: (final BuildContext context, final Set<String> editingItems, _) {
               final bool isEditing = editingItems.contains(item);
               final Widget icon = isEditing
                   ? const Icon(

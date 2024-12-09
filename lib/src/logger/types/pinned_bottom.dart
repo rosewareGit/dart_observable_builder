@@ -33,7 +33,7 @@ class _WidgetPinnedBottomLoggerState extends State<WidgetPinnedBottomLogger> {
     }
 
     final Widget controls = _controller.rxOpened.build(
-      builder: (final BuildContext context, final bool opened) {
+      builder: (final BuildContext context, final bool opened, final Widget? child) {
         final Widget child;
         if (opened) {
           child = Column(
